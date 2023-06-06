@@ -29,7 +29,6 @@ const Home = (props: Props) => {
     getData()
     getSwiperData()
     getRedPacket()
-    popShow()
   })
 
   useEffect(() => {
@@ -40,12 +39,12 @@ const Home = (props: Props) => {
   }, [navigation]);
 
   const getSwiperData = async () => {
-    const res = await NetGet("http://xn-ad.nfxuanniao.cn/api/ad/banner/list/public?groupId=1001")
+    const res = await NetGet("http://39.104.22.215:81/api/ad/banner/list/public?groupId=1001")
     setSwiperData(res.rows)
   }
 
   const getRedPacket = async () => {
-    const res = await NetPost("http://nfxuanniao.cn/app-api/app/v1/adRedPacket/list",
+    const res = await NetPost("http://39.104.22.215:80/app-api/app/v1/adRedPacket/list",
       { "adCode": "HOME_VIDEO_AD" }, {
       headers: { Authorization: basicSotre.token }
     })
@@ -60,7 +59,7 @@ const Home = (props: Props) => {
   const goDetail = async (data: { url: string, title: string }) => {
     const { url, title } = data
     navigation.navigate("WebViewPage", { url, title })
-    const res = await NetPost("http://nfxuanniao.cn/app-api/app/v1/ad/callback",
+    const res = await NetPost("http://39.104.22.215:80/app-api/app/v1/ad/callback",
       { "adSource": "HOME", "adType": "VIDEO_AD" }, { headers: { Authorization: basicSotre.token } })
     if (res.code === "200") {
       //记录时间
@@ -80,7 +79,7 @@ const Home = (props: Props) => {
 
   const receiveRedPacket = async () => {
     popShow()
-    const res = await NetPost("http://nfxuanniao.cn/app-api/app/v1/adRedPacket/receive",
+    const res = await NetPost("http://39.104.22.215:80/app-api/app/v1/adRedPacket/receive",
       { "adCode": "HOME_VIDEO_AD" }, {
       headers: { Authorization: basicSotre.token }
     })

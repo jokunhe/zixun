@@ -18,8 +18,8 @@ type State = {
 const Login = (props: Props) => {
   const windowWidth = useWindowDimensions().width;
   const [isSelect, setIsSelect] = useState(false)
-  const [authCode, setAuthCode] = useState("测试账号")
-  const [password, setPassword] = useState("123456")
+  const [authCode, setAuthCode] = useState("")
+  const [password, setPassword] = useState("")
   const login = async () => {
     if (!isSelect) {
       Toast.show("请勾选用户协议", {
@@ -30,7 +30,7 @@ const Login = (props: Props) => {
     }
     Loading.show()
 
-    const res = await NetPost("http://nfxuanniao.cn/app-api/app/v1/certification",
+    const res = await NetPost("http://39.104.22.215:80/app-api/app/v1/certification",
       {
         authCode,
         password,
@@ -39,14 +39,14 @@ const Login = (props: Props) => {
         imei: "275da00a-80e8-4a4e-88bd-46a913596620",
         deviceId: "7d4a4ef0d2cc1c1f"
       })
-    const { code, data } = res
+    const { code, data, message } = res
     Loading.dismiss()
     if (code === "200") {
       StoreData("token", JSON.stringify({ token: data }))
       runInAction(() => {
         props.basicSotre.token = data
       })
-      const res = await NetPost("http://nfxuanniao.cn/app-api/app/v1/memberInfo",
+      const res = await NetPost("http://39.104.22.215:80/app-api/app/v1/memberInfo",
         {}, {
         headers: { Authorization: data }
       })
@@ -55,7 +55,11 @@ const Login = (props: Props) => {
           props.basicSotre.mineData = res.data
         })
       }
-
+    } else {
+      Toast.show(message, {
+        duration: 300,
+        position: 0
+      })
     }
   }
 
@@ -69,16 +73,23 @@ const Login = (props: Props) => {
     }
     Loading.show()
 
-    const res = await NetPost("http://nfxuanniao.cn/app-api/app/v1/signUp",
+    const res = await NetPost("http://39.104.22.215:80/app-api/app/v1/signUp",
       {
         username: authCode,
         password,
         channel: "XN-YouShang",
       })
-    const { code, data } = res
+    console.log(res);
+
+    const { code, message } = res
     Loading.dismiss()
     if (code === "200") {
       login()
+    } else {
+      Toast.show(message, {
+        duration: 300,
+        position: 0
+      })
     }
   }
 

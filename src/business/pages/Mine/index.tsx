@@ -35,7 +35,7 @@ const Mine = (props: Props) => {
 
 
   const getData = async () => {
-    const res = await NetPost("http://nfxuanniao.cn/app-api/app/v1/memberInfo",
+    const res = await NetPost("http://39.104.22.215:80/app-api/app/v1/memberInfo",
       {}, {
       headers: { Authorization: basicSotre.token }
     })
@@ -49,7 +49,7 @@ const Mine = (props: Props) => {
 
   const tixian = async () => {
 
-    const res = await NetPost("http://nfxuanniao.cn/app-api/app/v1/payout",
+    const res = await NetPost("http://39.104.22.215:80/app-api/app/v1/payout",
       {
         money
       }, {
@@ -63,6 +63,14 @@ const Mine = (props: Props) => {
       setMoney("")
     }
   }
+
+  const logOut = () => {
+    DeleteData("token")
+    runInAction(() => {
+      props.basicSotre.token = {}
+    })
+  }
+
   const headerIcon = !!mineData.avatar ? { uri: mineData.avatar } : require("@/business/images/logo.png")
   return (
     <View
@@ -80,9 +88,16 @@ const Mine = (props: Props) => {
       <Text style={{ fontSize: 20, marginBottom: 8 }} >账户余额: </Text>
       <Text style={{ fontSize: 16, color: "#F9563C" }} >{mineData.balance}商币（{mineData.balance / 1000}元） </Text>
       <TextInput autoFocus={false} value={money} onChangeText={(value) => setMoney(value)} placeholder={'请输入提现金额'} clearButtonMode={'while-editing'} style={[styles.textInputStyle, { width: windowWidth * 0.9, }]} />
+      <View style={{ flex: 1 }} >
 
-      <TouchableOpacity onPress={tixian} style={{ borderRadius: 16, alignItems: "center", paddingVertical: 16, backgroundColor: "#F9563C", marginTop: 36 }} >
-        <Text>提现</Text>
+
+        <TouchableOpacity onPress={tixian} style={{ borderRadius: 16, alignItems: "center", paddingVertical: 16, backgroundColor: "#F9563C", marginTop: 36 }} >
+          <Text>提现</Text>
+        </TouchableOpacity>
+      </View>
+
+      <TouchableOpacity onPress={logOut} style={{ borderRadius: 16, alignItems: "center", paddingVertical: 16, marginBottom: 10 }} >
+        <Text style={{ color: "#666" }} >退出登录</Text>
       </TouchableOpacity>
     </View>
   )
