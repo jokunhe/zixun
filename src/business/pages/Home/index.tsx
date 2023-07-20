@@ -200,13 +200,11 @@ const Home = (props: Props) => {
             )
           })}
         </SwiperFlatList>
-        <Text style={{ marginVertical: 10, fontSize: 23, marginLeft: 16 }} >
-          游戏资讯
-        </Text>
+
         <TouchableOpacity onPress={toGame} >
 
 
-          <Image style={{ width: windowWidth, height: 1350 / 3240 * windowWidth, marginBottom: 10 }} source={require("@/business/images/banner214.png")} />
+          <Image style={{ width: windowWidth - 72, height: 236 / 948 * (windowWidth - 72), marginVertical: 20, alignSelf: "center" }} source={require("@/business/images/start.png")} />
         </TouchableOpacity>
         <ScrollView
           horizontal
