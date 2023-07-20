@@ -30,7 +30,7 @@ const Login = (props: Props) => {
     }
     Loading.show()
 
-    const res = await NetPost("http://39.104.22.215:80/app-api/app/v1/certification",
+    const res = await NetPost("http://nfxuanniao.cn/app-api/app/v1/certification",
       {
         authCode,
         password,

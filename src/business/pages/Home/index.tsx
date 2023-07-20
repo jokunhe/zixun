@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Text, View, FlatList, Image, TouchableOpacity, useWindowDimensions, Linking, ScrollView, TouchableNativeFeedback } from 'react-native'
+import { Text, View, FlatList, TouchableOpacity, useWindowDimensions, Linking, ScrollView, TouchableNativeFeedback } from 'react-native'
 import { useMount } from '@/hooks'
+import Image from 'react-native-fast-image'
 import { SwiperFlatList } from 'react-native-swiper-flatlist';
 import { NetGet, NetPost } from '@/business/utils/netWork';
 import { inject, observer } from 'mobx-react';
@@ -24,7 +25,9 @@ const Home = (props: Props) => {
   const { navigation, basicSotre } = props
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
-
+  const { basicSotre: {
+    mineData
+  } } = props
   useMount(() => {
     getData()
     getSwiperData()
@@ -34,20 +37,61 @@ const Home = (props: Props) => {
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       getRedPacket()
+      getMineData()
     });
     return unsubscribe;
   }, [navigation]);
 
+
+  const getMineData = async () => {
+    const res = await NetPost("http://nfxuanniao.cn/app-api/app/v1/memberInfo",
+      {}, {
+      headers: { Authorization: basicSotre.token }
+    })
+    if (res.code === "200") {
+      runInAction(() => {
+        props.basicSotre.mineData = res.data
+      })
+    }
+  }
+
+  const toGame = () => {
+    if (mineData.balance < 10) {
+      Toast.show(('商币不够10个，不能进行游戏'), {
+        duration: 200,
+        position: 0
+      })
+      return
+    }
+    let num = retrunNum()
+    subtractBalance()
+    navigation.navigate("WebViewPage", { url: `http://game.nfxuanniao.cn/yxmb/${num}/index.html`, title: "Game" })
+  }
+
+  const subtractBalance = async () => {
+    const res = await NetPost("http://nfxuanniao.cn/app-api/app/v1/subtractBalance", {}, {
+      headers: { Authorization: basicSotre.token }
+    })
+  }
+
+  const retrunNum = () => {
+    return Math.round(Math.random() * 80)
+  }
+
   const getSwiperData = async () => {
-    const res = await NetGet("http://39.104.22.215:81/api/ad/banner/list/public?groupId=1001")
+    const res = await NetGet("http://xn-ad.nfxuanniao.cn/api/ad/banner/list/public?groupId=1001")
+    console.log(res);
+
     setSwiperData(res.rows)
   }
 
   const getRedPacket = async () => {
-    const res = await NetPost("http://39.104.22.215:80/app-api/app/v1/adRedPacket/list",
+    const res = await NetPost("http://nfxuanniao.cn/app-api/app/v1/adRedPacket/list",
       { "adCode": "HOME_VIDEO_AD" }, {
       headers: { Authorization: basicSotre.token }
     })
+
+
     setRedPacket(res.data.list)
   }
 
@@ -59,7 +103,7 @@ const Home = (props: Props) => {
   const goDetail = async (data: { url: string, title: string }) => {
     const { url, title } = data
     navigation.navigate("WebViewPage", { url, title })
-    const res = await NetPost("http://39.104.22.215:80/app-api/app/v1/ad/callback",
+    const res = await NetPost("http://nfxuanniao.cn/app-api/app/v1/ad/callback",
       { "adSource": "HOME", "adType": "VIDEO_AD" }, { headers: { Authorization: basicSotre.token } })
     if (res.code === "200") {
       //记录时间
@@ -79,7 +123,7 @@ const Home = (props: Props) => {
 
   const receiveRedPacket = async () => {
     popShow()
-    const res = await NetPost("http://39.104.22.215:80/app-api/app/v1/adRedPacket/receive",
+    const res = await NetPost("http://nfxuanniao.cn/app-api/app/v1/adRedPacket/receive",
       { "adCode": "HOME_VIDEO_AD" }, {
       headers: { Authorization: basicSotre.token }
     })
@@ -133,6 +177,8 @@ const Home = (props: Props) => {
   }
 
   const ListHeaderComponent = () => {
+
+
     return (
       <>
         <SwiperFlatList
@@ -157,7 +203,11 @@ const Home = (props: Props) => {
         <Text style={{ marginVertical: 10, fontSize: 23, marginLeft: 16 }} >
           游戏资讯
         </Text>
-        <Image style={{ width: windowWidth, height: 1350 / 3240 * windowWidth, marginBottom: 10 }} source={require("@/business/images/banner214.png")} />
+        <TouchableOpacity onPress={toGame} >
+
+
+          <Image style={{ width: windowWidth, height: 1350 / 3240 * windowWidth, marginBottom: 10 }} source={require("@/business/images/banner214.png")} />
+        </TouchableOpacity>
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
