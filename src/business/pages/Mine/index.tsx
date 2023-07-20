@@ -77,12 +77,12 @@ const Mine = (props: Props) => {
     <View
       style={{ flex: 1, backgroundColor: '#fff', paddingHorizontal: 16, paddingTop: 80 }}
     >
-      <ImageBackground style={{ width: windowWidth - 32, height: (windowWidth - 32) * (129 / 328), justifyContent: "center", alignSelf: "center", marginVertical: 16 }} source={require("@/business/images/my_setting_icon.webp")} >
+      <ImageBackground style={{ width: windowWidth - 32, height: (windowWidth - 32) * (129 / 328), justifyContent: "center", alignSelf: "center", marginVertical: 16, borderRadius: 20, overflow: "hidden" }} source={require("@/business/images/sign_in_backdrop.webp")} >
         <View style={{ flexDirection: "row", alignItems: "center" }} >
           <Image style={{ width: 80, height: 80, marginHorizontal: 16, borderRadius: 80 }} source={headerIcon} />
           <View>
-            <Text style={{ marginBottom: 16, color: "#fff", fontSize: 16 }} >{mineData.nikename}</Text>
-            <Text style={{ color: "#fff", fontSize: 16 }}>用户ID:{mineData.uid} </Text>
+            <Text style={{ marginBottom: 16, color: "#000", fontSize: 16 }} >{mineData.nikename}</Text>
+            <Text style={{ color: "#000", fontSize: 16 }}>用户ID:{mineData.uid} </Text>
           </View>
         </View>
       </ImageBackground>

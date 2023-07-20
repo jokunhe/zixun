@@ -155,23 +155,21 @@ const Home = (props: Props) => {
       <TouchableOpacity
         onPress={() => { goDetail(item) }}
         style={{
+          width: "50%",
           flexDirection: "row",
           alignItems: "center",
           marginBottom: 20,
-          marginHorizontal: 16,
+          marginHorizontal: 8,
           borderBottomColor: "#999",
           paddingBottom: 16,
-          borderBottomWidth: 1
-        }} >
-        <Image resizeMode="cover" style={{ width: 100, height: 100, marginRight: 16 }} source={{ uri: item.picUrl }} />
-        <View style={{ flex: 1 }} >
+        }}>
+        <View style={{ width: "40%" }} >
           <Text style={{ fontSize: 16 }} >
             {item.title}
           </Text>
-          <Text style={{ fontSize: 12, marginTop: 20 }} >
-            {item.description}
-          </Text>
         </View>
+        <Image resizeMode="cover" style={{ width: 80, height: 80, marginRight: 16 }} source={{ uri: item.picUrl }} />
+
       </TouchableOpacity>
     )
   }
@@ -248,6 +246,7 @@ const Home = (props: Props) => {
         ListHeaderComponent={ListHeaderComponent}
         renderItem={renderItem}
         data={data}
+        numColumns={2}
       />
     </View>
   )
