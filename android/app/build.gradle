@@ -135,6 +135,7 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
+        applicationId "com.zixun.maifu"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -228,10 +229,11 @@ android {
             keyPassword 'android'
         }
         release {
-                storeFile file("./xuan_niao_game.jks")
-                storePassword '123456'
-                keyAlias 'xuan_niao_game'
-                keyPassword '123456'
+                storeFile file("./zixun2.keystore")
+                storePassword MYAPP_RELEASE_STORE_PASSWORD
+                keyAlias MYAPP_RELEASE_KEY_ALIAS
+                keyPassword MYAPP_RELEASE_KEY_PASSWORD
+
         }
     }
     buildTypes {

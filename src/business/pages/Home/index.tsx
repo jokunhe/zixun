@@ -9,7 +9,7 @@ import Toast from '@/business/components/Toast';
 import { runInAction } from 'mobx';
 import moment from 'moment';
 import ModalPanel from '@/business/components/ModalPanel';
-
+import { MasonryFlashList } from "@shopify/flash-list";
 type Props = {
   navigation: any
   [key: string]: any
@@ -155,15 +155,11 @@ const Home = (props: Props) => {
       <TouchableOpacity
         onPress={() => { goDetail(item) }}
         style={{
-          flexDirection: "row",
+          flex: 1,
           alignItems: "center",
-          marginBottom: 20,
-          marginHorizontal: 16,
-          borderBottomColor: "#999",
-          paddingBottom: 16,
-          borderBottomWidth: 1
+          marginHorizontal: 8,
         }} >
-        <Image resizeMode="cover" style={{ width: 100, height: 100, marginRight: 16 }} source={{ uri: item.picUrl }} />
+        <Image resizeMode="contain" style={{ width: 150, height: 180, marginRight: 16 }} source={{ uri: item.picUrl }} />
         <View style={{ flex: 1 }} >
           <Text style={{ fontSize: 16 }} >
             {item.title}
@@ -244,10 +240,11 @@ const Home = (props: Props) => {
     <View
       style={{ flex: 1, backgroundColor: '#fff', }}
     >
-      <FlatList
+      <MasonryFlashList
         ListHeaderComponent={ListHeaderComponent}
         renderItem={renderItem}
         data={data}
+        numColumns={2}
       />
     </View>
   )
