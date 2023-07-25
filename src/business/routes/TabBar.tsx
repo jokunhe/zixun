@@ -3,7 +3,7 @@ import { Image, Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Mine from '../pages/Mine';
 import Home from '../pages/Home';
-
+import List from '../pages/List'
 
 
 const Tab = createBottomTabNavigator();
@@ -21,7 +21,15 @@ export default function App() {
               img = require("../images/home.png")
 
             }
-          } else if (route.name === 'Mine') {
+          } else if (route.name === 'List') {
+            if (focused) {
+              img = require("../images/icon-list_focused.png")
+            } else {
+              img = require("../images/icon-list.png")
+
+            }
+          }
+          else if (route.name === 'Mine') {
             if (focused) {
               img = require("../images/mine_focused.png")
             } else {
@@ -32,10 +40,11 @@ export default function App() {
           return <Image style={{ height: 30, width: 30 }} source={img} />
         },
         tabBarShowLabel: false,
-
+        headerShown: false,
       })}
     >
       <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="List" component={List} />
       <Tab.Screen name="Mine" component={Mine} />
     </Tab.Navigator>
   );

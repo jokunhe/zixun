@@ -6,7 +6,7 @@ import { RetrieveData } from '../utils/cache'
 import { inject, observer } from 'mobx-react'
 import { useMount } from '@/hooks'
 import { runInAction } from 'mobx'
-
+import RNBootSplash from "react-native-bootsplash";
 const Stack = createNativeStackNavigator()
 const CreateNavigation = (props: {
   routers: any,
@@ -58,7 +58,7 @@ const CreateNavigation = (props: {
   ]
   if (loading) return null
   return (
-    <NavigationContainer theme={navigationTheme}>
+    <NavigationContainer theme={navigationTheme} onReady={() => RNBootSplash.hide()} >
       <Stack.Navigator
         initialRouteName='main'
         screenOptions={({ route, navigation }) => {
@@ -95,7 +95,7 @@ const CreateNavigation = (props: {
         )}
 
       </Stack.Navigator>
-    </NavigationContainer>
+    </NavigationContainer >
   )
 
 

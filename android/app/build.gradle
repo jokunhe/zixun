@@ -139,7 +139,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
-        versionName "1.0"
+        versionName "3.0"
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
 
         if (isNewArchitectureEnabled()) {
@@ -229,11 +229,10 @@ android {
             keyPassword 'android'
         }
         release {
-                storeFile file("/Users/jokun/xn/ziXun/android/app/zixun1.keystore")
-                storePassword MYAPP_RELEASE_STORE_PASSWORD
-                keyAlias MYAPP_RELEASE_KEY_ALIAS
-                keyPassword MYAPP_RELEASE_KEY_PASSWORD
-            
+                storeFile file("./xuan_niao_game.jks")
+                storePassword '123456'
+                keyAlias 'xuan_niao_game'
+                keyPassword '123456'
         }
     }
     buildTypes {
@@ -269,7 +268,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-
+    implementation("androidx.core:core-splashscreen:1.0.0")
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
 

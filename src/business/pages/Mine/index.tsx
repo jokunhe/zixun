@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { Text, View, FlatList, Image, TouchableOpacity, useWindowDimensions, Linking, ImageBackground, StyleSheet, TextInput } from 'react-native'
+import { Text, View, FlatList, TouchableOpacity, useWindowDimensions, Linking, ImageBackground, StyleSheet, TextInput } from 'react-native'
 import { useMount } from '@/hooks'
 import { SwiperFlatList } from 'react-native-swiper-flatlist';
+import Image from 'react-native-fast-image'
 import { NetPost } from '@/business/utils/netWork';
 import Dialog from '@/business/components/Dialog';
 import { DeleteData, StoreData } from '@/business/utils/cache';
@@ -47,26 +48,34 @@ const Mine = (props: Props) => {
   }
 
 
-  const tixian = async () => {
+  // const tixian = async () => {
 
-    const res = await NetPost("http://nfxuanniao.cn/app-api/app/v1/payout",
-      {
-        money
-      }, {
-      headers: { Authorization: token }
+  //   const res = await NetPost("http://nfxuanniao.cn/app-api/app/v1/payout",
+  //     {
+  //       money
+  //     }, {
+  //     headers: { Authorization: token }
+  //   })
+  //   if (res.code === "200") {
+  //     Dialog.show({
+  //       title: "提现成功",
+  //       positiveText: "确定"
+  //     })
+  //     setMoney("")
+  //   }
+  // }
+
+  const logOut = () => {
+    DeleteData("token")
+    runInAction(() => {
+      props.basicSotre.token = {}
     })
-    if (res.code === "200") {
-      Dialog.show({
-        title: "提现成功",
-        positiveText: "确定"
-      })
-      setMoney("")
-    }
   }
+
   const headerIcon = !!mineData.avatar ? { uri: mineData.avatar } : require("@/business/images/logo.png")
   return (
     <View
-      style={{ flex: 1, backgroundColor: '#fff', paddingHorizontal: 16 }}
+      style={{ flex: 1, backgroundColor: '#fff', paddingHorizontal: 16, paddingTop: 80 }}
     >
       <ImageBackground style={{ width: windowWidth - 32, height: (windowWidth - 32) * (129 / 328), justifyContent: "center", alignSelf: "center", marginVertical: 16 }} source={require("@/business/images/my_setting_icon.webp")} >
         <View style={{ flexDirection: "row", alignItems: "center" }} >
@@ -77,13 +86,20 @@ const Mine = (props: Props) => {
           </View>
         </View>
       </ImageBackground>
-      <Text style={{ fontSize: 20, marginBottom: 8 }} >账户余额: </Text>
-      <Text style={{ fontSize: 16, color: "#F9563C" }} >{mineData.balance}商币（{mineData.balance / 1000}元） </Text>
-      <TextInput autoFocus={false} value={money} onChangeText={(value) => setMoney(value)} placeholder={'请输入提现金额'} clearButtonMode={'while-editing'} style={[styles.textInputStyle, { width: windowWidth * 0.9, }]} />
+      <Text style={{ fontSize: 20, marginBottom: 18 }} >账户余额: </Text>
+      <Text style={{ fontSize: 16, color: "#000" }} > <Text style={{ fontSize: 22, color: "#F9563C" }} >{mineData.balance}</Text>  商币(10个商币可以进行一次游戏)</Text>
+      {/* <TextInput autoFocus={false} value={money} onChangeText={(value) => setMoney(value)} placeholder={'请输入提现金额'} clearButtonMode={'while-editing'} style={[styles.textInputStyle, { width: windowWidth * 0.9, }]} /> */}
+      <View style={{ flex: 1, justifyContent: "flex-end", paddingBottom: 40 }} >
 
-      <TouchableOpacity onPress={tixian} style={{ borderRadius: 16, alignItems: "center", paddingVertical: 16, backgroundColor: "#F9563C", marginTop: 36 }} >
-        <Text>提现</Text>
-      </TouchableOpacity>
+
+        <TouchableOpacity onPress={logOut} style={{ borderRadius: 16, alignItems: "center", paddingVertical: 16, backgroundColor: "#F9563C", marginTop: 36 }} >
+          <Text>退出登录</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* <TouchableOpacity onPress={logOut} style={{ borderRadius: 16, alignItems: "center", paddingVertical: 16, marginBottom: 10 }} >
+        <Text style={{ color: "#666" }} >退出登录</Text>
+      </TouchableOpacity> */}
     </View>
   )
 }

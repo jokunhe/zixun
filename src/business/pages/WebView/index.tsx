@@ -17,6 +17,13 @@ const WebViewPage = (props: Props) => {
 
 
   const insets = useSafeAreaInsets()
+  const runFirst = `
+  let selector = document.querySelector("div.ymwBootDownload")
+  
+  selector.style.display = "none"
+     
+        true; // note: this is required, or you'll sometimes get silent failures
+      `;
   return (
     <View
       style={{ flex: 1, backgroundColor: '#fff', }}
@@ -26,7 +33,7 @@ const WebViewPage = (props: Props) => {
         navigation={props.navigation}
         title={props.route.params.title}
       />
-      <WebView source={{ uri: props.route.params.url }} />
+      <WebView injectedJavaScript={runFirst} source={{ uri: props.route.params.url }} />
     </View>
   )
 }
