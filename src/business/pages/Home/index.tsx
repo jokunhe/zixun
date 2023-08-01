@@ -9,7 +9,7 @@ import Toast from '@/business/components/Toast';
 import { runInAction } from 'mobx';
 import moment from 'moment';
 import ModalPanel from '@/business/components/ModalPanel';
-
+import serverUrl from '@/business/api'
 type Props = {
   navigation: any
   [key: string]: any
@@ -44,7 +44,7 @@ const Home = (props: Props) => {
 
 
   const getMineData = async () => {
-    const res = await NetPost("http://nfxuanniao.cn/app-api/app/v1/memberInfo",
+    const res = await NetPost(serverUrl.memberInfo,
       {}, {
       headers: { Authorization: basicSotre.token }
     })
@@ -69,7 +69,7 @@ const Home = (props: Props) => {
   }
 
   const subtractBalance = async () => {
-    const res = await NetPost("http://nfxuanniao.cn/app-api/app/v1/subtractBalance", {}, {
+    const res = await NetPost(serverUrl.subtractBalance, {}, {
       headers: { Authorization: basicSotre.token }
     })
   }
@@ -79,14 +79,14 @@ const Home = (props: Props) => {
   }
 
   const getSwiperData = async () => {
-    const res = await NetGet("http://xn-ad.nfxuanniao.cn/api/ad/banner/list/public?groupId=1001")
+    const res = await NetGet(serverUrl.adList)
     console.log(res);
 
     setSwiperData(res.rows)
   }
 
   const getRedPacket = async () => {
-    const res = await NetPost("http://nfxuanniao.cn/app-api/app/v1/adRedPacket/list",
+    const res = await NetPost(serverUrl.getRedPacket,
       { "adCode": "HOME_VIDEO_AD" }, {
       headers: { Authorization: basicSotre.token }
     })
@@ -103,7 +103,7 @@ const Home = (props: Props) => {
   const goDetail = async (data: { url: string, title: string }) => {
     const { url, title } = data
     navigation.navigate("WebViewPage", { url, title })
-    const res = await NetPost("http://nfxuanniao.cn/app-api/app/v1/ad/callback",
+    const res = await NetPost(serverUrl.clickAd,
       { "adSource": "HOME", "adType": "VIDEO_AD" }, { headers: { Authorization: basicSotre.token } })
     if (res.code === "200") {
       //记录时间
@@ -123,7 +123,7 @@ const Home = (props: Props) => {
 
   const receiveRedPacket = async () => {
     popShow()
-    const res = await NetPost("http://nfxuanniao.cn/app-api/app/v1/adRedPacket/receive",
+    const res = await NetPost(serverUrl.receiveRedPacket,
       { "adCode": "HOME_VIDEO_AD" }, {
       headers: { Authorization: basicSotre.token }
     })
