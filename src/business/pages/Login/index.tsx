@@ -7,6 +7,7 @@ import { runInAction } from 'mobx'
 import Toast from '@/business/components/Toast';
 import { WINDOW_WIDTH } from '@/business/components/DeviceInfo';
 import Loading from '@/business/components/Loading';
+import serverUrl from '@/business/api';
 type Props = {
   navigation: any
   [key: string]: any
@@ -30,7 +31,7 @@ const Login = (props: Props) => {
     }
     Loading.show()
 
-    const res = await NetPost("http://nfxuanniao.cn/app-api/app/v1/certification",
+    const res = await NetPost(serverUrl.login,
       {
         authCode,
         password,
@@ -46,7 +47,7 @@ const Login = (props: Props) => {
       runInAction(() => {
         props.basicSotre.token = data
       })
-      const res = await NetPost("http://39.104.22.215:80/app-api/app/v1/memberInfo",
+      const res = await NetPost(serverUrl.memberInfo,
         {}, {
         headers: { Authorization: data }
       })
@@ -73,7 +74,7 @@ const Login = (props: Props) => {
     }
     Loading.show()
 
-    const res = await NetPost("http://39.104.22.215:80/app-api/app/v1/signUp",
+    const res = await NetPost(serverUrl.register,
       {
         username: authCode,
         password,
