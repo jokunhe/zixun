@@ -372,6 +372,8 @@ PODS:
     - React-Core
     - SDWebImage (~> 5.11.1)
     - SDWebImageWebPCoder (~> 0.8.4)
+  - RNFlashList (1.5.0):
+    - React-Core
   - RNScreens (3.19.0):
     - React-Core
     - React-RCTImage
@@ -446,6 +448,7 @@ DEPENDENCIES:
   - RNBootSplash (from `../node_modules/react-native-bootsplash`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - RNFastImage (from `../node_modules/react-native-fast-image`)
+  - "RNFlashList (from `../node_modules/@shopify/flash-list`)"
   - RNScreens (from `../node_modules/react-native-screens`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -541,6 +544,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-async-storage/async-storage"
   RNFastImage:
     :path: "../node_modules/react-native-fast-image"
+  RNFlashList:
+    :path: "../node_modules/@shopify/flash-list"
   RNScreens:
     :path: "../node_modules/react-native-screens"
   Yoga:
@@ -596,6 +601,7 @@ SPEC CHECKSUMS:
   RNBootSplash: 3f3f7f82efe2addbfe7ddeda20877ff4d579cd81
   RNCAsyncStorage: 8616bd5a58af409453ea4e1b246521bb76578d60
   RNFastImage: 5c9c9fed9c076e521b3f509fe79e790418a544e8
+  RNFlashList: 25b0e092b4470c84db0386d4f5316dc34123bb6d
   RNScreens: ea4cd3a853063cda19a4e3c28d2e52180c80f4eb
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SDWebImageWebPCoder: 908b83b6adda48effe7667cd2b7f78c897e5111d

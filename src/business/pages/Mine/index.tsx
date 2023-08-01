@@ -8,6 +8,7 @@ import Dialog from '@/business/components/Dialog';
 import { DeleteData, StoreData } from '@/business/utils/cache';
 import { runInAction } from 'mobx'
 import { inject, observer } from 'mobx-react'
+import serverUrl from '@/business/api';
 type Props = {
   navigation: any
   [key: string]: any
@@ -36,7 +37,7 @@ const Mine = (props: Props) => {
 
 
   const getData = async () => {
-    const res = await NetPost("http://nfxuanniao.cn/app-api/app/v1/memberInfo",
+    const res = await NetPost(serverUrl.memberInfo,
       {}, {
       headers: { Authorization: basicSotre.token }
     })
@@ -50,7 +51,7 @@ const Mine = (props: Props) => {
 
   // const tixian = async () => {
 
-  //   const res = await NetPost("http://nfxuanniao.cn/app-api/app/v1/payout",
+  //   const res = await NetPost(,
   //     {
   //       money
   //     }, {
