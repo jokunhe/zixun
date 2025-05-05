@@ -66,7 +66,7 @@ const Mine = (props: Props) => {
 
   const headerIcon = !!mineData.avatar ? { uri: mineData.avatar } : require("@/business/images/logo.png")
   return (
-    <ImageBackground resizeMode="stretch" style={{ flex: 1, width: "100%", height: "100%" }} source={require("@/business/images/beijing2.png")} >
+    <ImageBackground resizeMode="stretch" style={{ flex: 1, width: "100%", height: "100%" }} >
       <View
         style={{ flex: 1, paddingHorizontal: 16, paddingTop: 80 }}
       >
