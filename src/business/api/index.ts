@@ -1,5 +1,5 @@
-const baseUrl = "http://39.104.22.215/"
-const adUrl = "http://39.104.22.215:81/"
+const baseUrl = "http://nfxuanniao.cn/"
+const adUrl = "http://xn-ad.nfxuanniao.cn/"
 const serverUrl = {
   login: baseUrl + "app-api/app/v1/certification",
   register: baseUrl + "app-api/app/v1/signUp",
