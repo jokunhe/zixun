@@ -6,6 +6,7 @@ import { RetrieveData } from '../utils/cache'
 import { inject, observer } from 'mobx-react'
 import { useMount } from '@/hooks'
 import { runInAction } from 'mobx'
+import WebViewPage from '../pages/WebView'
 import RNBootSplash from "react-native-bootsplash";
 const Stack = createNativeStackNavigator()
 const CreateNavigation = (props: {
@@ -54,6 +55,10 @@ const CreateNavigation = (props: {
     {
       name: 'Login',
       component: Login
+    },
+    {
+      name: "WebViewPage",
+      component: WebViewPage
     }
   ]
   if (loading) return null

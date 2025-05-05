@@ -49,22 +49,13 @@ const Mine = (props: Props) => {
   }
 
 
-  // const tixian = async () => {
+  const tixian = async () => {
 
-  //   const res = await NetPost(,
-  //     {
-  //       money
-  //     }, {
-  //     headers: { Authorization: token }
-  //   })
-  //   if (res.code === "200") {
-  //     Dialog.show({
-  //       title: "提现成功",
-  //       positiveText: "确定"
-  //     })
-  //     setMoney("")
-  //   }
-  // }
+    Dialog.show({
+      title: "请联系推荐渠道",
+      positiveText: "确定"
+    })
+  }
 
   const logOut = () => {
     DeleteData("token")
@@ -89,8 +80,13 @@ const Mine = (props: Props) => {
           </View>
         </ImageBackground>
         <Text style={{ fontSize: 20, marginBottom: 18 }} >账户余额: </Text>
-        <Text style={{ fontSize: 16, color: "#000" }} > <Text style={{ fontSize: 22, color: "#F9563C" }} >{mineData.balance}</Text>  商币(10个商币可以进行一次游戏)</Text>
-        {/* <TextInput autoFocus={false} value={money} onChangeText={(value) => setMoney(value)} placeholder={'请输入提现金额'} clearButtonMode={'while-editing'} style={[styles.textInputStyle, { width: windowWidth * 0.9, }]} /> */}
+        <Text style={{ fontSize: 16, color: "#000" }} > <Text style={{ fontSize: 22, color: "#F9563C" }} >{mineData.balance}</Text>  商币</Text>
+        <View style={{ paddingHorizontal: 100 }} >
+          <TouchableOpacity onPress={tixian} style={{ borderRadius: 16, alignItems: "center", paddingVertical: 16, marginTop: 10, marginBottom: 10, backgroundColor: "#ffcc00" }} >
+            <Text style={{}} >提现</Text>
+          </TouchableOpacity>
+        </View>
+
         <View style={{ flex: 1, justifyContent: "flex-end", paddingBottom: 40 }} >
 
 

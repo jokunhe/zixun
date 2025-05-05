@@ -18,6 +18,7 @@ type State = {
 
 const Login = (props: Props) => {
   const windowWidth = useWindowDimensions().width;
+  const { navigation } = props
   const [isSelect, setIsSelect] = useState(false)
   const [authCode, setAuthCode] = useState("")
   const [password, setPassword] = useState("")
@@ -57,11 +58,17 @@ const Login = (props: Props) => {
         })
       }
     } else {
+      Loading.dismiss()
       Toast.show(message, {
         duration: 300,
         position: 0
       })
     }
+  }
+
+
+  const xieyi = () => {
+    // navigation.navigate("WebViewPage", { url: `http://www.nfxuanniao.cn/dist/index.html`, title: "协议" })
   }
 
   const logon = async () => {
@@ -119,7 +126,8 @@ const Login = (props: Props) => {
         }} >
           <Image source={img} style={{ height: 20, width: 20 }} />
         </TouchableOpacity>
-        <Text style={{ fontSize: 13, color: "#333" }} >我已阅读并同意<Text style={{ color: "#05b4fa" }} >《用户协议》《隐私政策》</Text></Text>
+
+        <Text style={{ fontSize: 13, color: "#333" }} >我已阅读并同意<Text onPress={xieyi} style={{ color: "#05b4fa" }} >《用户协议》《隐私政策》</Text></Text>
 
       </View>
     </View>
